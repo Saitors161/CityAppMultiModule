@@ -1,0 +1,17 @@
+server:
+  port: 8090
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=citizen_app
+    username: postgres
+    password: 1234
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=citizen_app
+    user: postgres
+    password: 1234
+  jpa:
+    show-sql: true
+#logging:
+#  level:
+#    root: debug

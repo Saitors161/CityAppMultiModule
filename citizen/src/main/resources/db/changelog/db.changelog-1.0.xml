@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+	<changeSet id="1.0.0" author="mikhail.tsirdava">
+		<createTable tableName="citizens">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="first_name" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_name" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="passport_id" type="INT" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="1.0.1" author="mikhail.tsirdava">
+		<createTable tableName="passports">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="number" type="UUID">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="date_of_created" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>
