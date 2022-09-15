@@ -1,6 +1,5 @@
-package com.example.citizen.dto;
+package com.example.common.dto;
 
-import com.example.citizen.model.Address;
 import lombok.Data;
 
 import java.util.Set;
@@ -9,5 +8,5 @@ public class BuildDto {
     private Integer id;
     private Integer square;
     private Set<Integer> owners;
-    private Address address;
+    private AddressDto address;
 }

@@ -1,9 +1,7 @@
 package com.example.citizen.mapper;
 
-import com.example.citizen.dto.CarDto;
-import com.example.citizen.dto.CitizenDto;
 import com.example.citizen.model.Car;
-import com.example.citizen.model.Citizen;
+import com.example.common.dto.CarDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,8 +1,8 @@
 package com.example.citizen.service;
 
-import com.example.citizen.dto.PassportDto;
-import com.example.citizen.model.Citizen;
+
 import com.example.citizen.model.Passport;
+import com.example.common.dto.PassportDto;
 
 import java.util.Set;
 

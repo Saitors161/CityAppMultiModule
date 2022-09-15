@@ -1,7 +1,7 @@
 package com.example.citizen.controller;
 
-import com.example.citizen.dto.CitizenDto;
 import com.example.citizen.service.CitizenService;
+import com.example.common.dto.CitizenDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

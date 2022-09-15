@@ -1,9 +1,10 @@
-package com.example.car.dto;
+package com.example.common.dto;
 
 import lombok.Data;
 
 import java.util.Date;
 import java.util.UUID;
+
 @Data
 public class CarDto {
     private Integer id;

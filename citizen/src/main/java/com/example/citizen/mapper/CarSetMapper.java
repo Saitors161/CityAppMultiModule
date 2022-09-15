@@ -1,7 +1,7 @@
 package com.example.citizen.mapper;
 
-import com.example.citizen.dto.CarDto;
 import com.example.citizen.model.Car;
+import com.example.common.dto.CarDto;
 import org.mapstruct.Mapper;
 
 import java.util.Set;

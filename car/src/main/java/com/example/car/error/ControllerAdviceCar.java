@@ -25,4 +25,10 @@ public class ControllerAdviceCar {
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler({IncorrectDataException.class})
+    protected ResponseEntity<Object> handleIncorrectDataForCarEx(RuntimeException ex, WebRequest request) {
+        ApiError apiError = new ApiError(ex.getMessage(),new Date());
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    }
+
 }

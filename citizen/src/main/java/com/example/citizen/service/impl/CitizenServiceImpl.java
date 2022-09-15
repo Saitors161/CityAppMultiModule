@@ -1,6 +1,5 @@
 package com.example.citizen.service.impl;
 
-import com.example.citizen.dto.CitizenDto;
 import com.example.citizen.error.EntityInCityNotFoundException;
 import com.example.citizen.mapper.CitizenMapper;
 import com.example.citizen.mapper.CitizenSetMapper;
@@ -9,11 +8,11 @@ import com.example.citizen.model.Passport;
 import com.example.citizen.repository.CitizenRepository;
 import com.example.citizen.service.CitizenService;
 import com.example.citizen.service.PassportService;
+import com.example.common.dto.CitizenDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;

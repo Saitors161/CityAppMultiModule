@@ -9,6 +9,4 @@ public class EntityInCityNotFoundException extends RuntimeException {
     public EntityInCityNotFoundException(String message) {
         super(message);
     }
-
-
 }

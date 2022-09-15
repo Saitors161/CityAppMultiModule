@@ -1,12 +1,12 @@
 package com.example.citizen.service.impl;
 
-import com.example.citizen.dto.PassportDto;
 import com.example.citizen.error.EntityInCityNotFoundException;
 import com.example.citizen.mapper.PassportMapper;
 import com.example.citizen.mapper.PassportSetMapper;
 import com.example.citizen.model.Passport;
 import com.example.citizen.repository.PassportRepository;
 import com.example.citizen.service.PassportService;
+import com.example.common.dto.PassportDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

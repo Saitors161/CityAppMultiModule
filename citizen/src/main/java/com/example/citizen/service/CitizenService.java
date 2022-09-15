@@ -1,7 +1,6 @@
 package com.example.citizen.service;
 
-import com.example.citizen.dto.CitizenDto;
-import com.example.citizen.model.Citizen;
+import com.example.common.dto.CitizenDto;
 
 import java.util.Set;
 

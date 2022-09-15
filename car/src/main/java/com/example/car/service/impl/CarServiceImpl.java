@@ -1,18 +1,16 @@
 package com.example.car.service.impl;
 
 import com.example.car.dto.CarDto;
-import com.example.car.mapper.CarMapper;
+import com.example.car.error.IncorrectDataException;
 import com.example.car.mapper.CarListMapper;
+import com.example.car.mapper.CarMapper;
 import com.example.car.model.Car;
 import com.example.car.repository.CarRepository;
 import com.example.car.service.CarService;
-import com.example.car.util.TypeCar;
+import com.example.car.service.CitizenService;
+import com.example.common.enums.TypeCar;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
@@ -23,13 +21,12 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
     private final CarListMapper carListMapper;
     private final CarMapper carMapper;
-    @Value("${city.citizen-app.citizen-url}")
-    private String urlCitizenApp; //todo: maybe need refactoring
+    private final CitizenService citizenService;
 
 
     @Override
     public CarDto save(CarDto carDto) {
-        Set<String> incorrectData = checkDataForCarDto(carDto);
+        Set<String> incorrectData = checkDataForCarDtoSave(carDto);
         if (incorrectData.isEmpty()) {
             Car car = carMapper.toModel(carDto);
             car.setSerialNumber(UUID.randomUUID());
@@ -37,18 +34,19 @@ public class CarServiceImpl implements CarService {
             return carMapper.toDto(carRepository.save(car));
         }
 
-        throw new RuntimeException("Incorrect data for car creating: " + incorrectData + ". " +
+        throw new IncorrectDataException("Incorrect data for car creating: " + incorrectData + ". " +
                 "Creating car was cancel");
         //todo: maybe will using common error from citizen app
 
     }
 
-    private Set<String> checkDataForCarDto(CarDto carDto) {
+    private Set<String> checkDataForCarDtoSave(CarDto carDto) {
         Set<String> incorrectData = new HashSet<>();
-        checkDataForCitizen(incorrectData, carDto.getCitizenId());
+        citizenService.checkDataForCitizen(incorrectData, carDto.getCitizenId());
         checkDataForCar(incorrectData, carDto);
         return incorrectData;
     }
+
 
     private void checkDataForCar(Set<String> incorrectData, CarDto carDto) {
         if (carDto.getTypeCar() == null || carDto.getTypeCar().equals("")) {
@@ -63,33 +61,28 @@ public class CarServiceImpl implements CarService {
             }
             if (!typeCarIsCorrect) {
                 incorrectData.add("Incorrect type of car : " + carDto.getTypeCar() +
-                        "Possible types: " + Arrays.toString(TypeCar.values()));
+                        ". Possible types: " + Arrays.toString(TypeCar.values()));
             }
         }
     }
 
-    private void checkDataForCitizen(Set<String> incorrectData, Integer citizenId) {
-        if (citizenId == null || citizenId == 0 || !citizenExist(citizenId)) {
-            incorrectData.add("Citizen with id " + citizenId + " not found.");
-        }
-        ;
-    }
 
-    private boolean citizenExist(Integer id) {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response
-                = restTemplate.getForEntity(urlCitizenApp + "/" + id, String.class);
-        if (response.getStatusCode().equals(HttpStatus.OK)){
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public CarDto update(CarDto carDto) {
-        Car car = carRepository.findById(carDto.getId()).orElseThrow(()-> new EntityNotFoundException("E"));
-
-        return null;
+        Set<String> incorrectData = new HashSet<>();
+        citizenService.checkDataForCitizen(incorrectData, carDto.getCitizenId());
+        Car car = carRepository.findById(carDto.getId()).get();
+        if (car == null) {
+            incorrectData.add("Car with id " + carDto.getId() + " not found");
+        }
+        if (incorrectData.isEmpty()) {
+            car.setCitizenId(carDto.getCitizenId());
+            car.setRegistered(new Date());
+            return carMapper.toDto(carRepository.save(car));
+        }
+        throw new IncorrectDataException("Incorrect data for car creating: " + incorrectData + ". " +
+                "Creating car was cancel");
     }
 
     @Override

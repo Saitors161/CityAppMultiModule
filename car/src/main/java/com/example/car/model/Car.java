@@ -1,6 +1,6 @@
 package com.example.car.model;
 
-import com.example.car.util.TypeCar;
+import com.example.common.enums.TypeCar;
 import lombok.Data;
 
 import javax.persistence.*;

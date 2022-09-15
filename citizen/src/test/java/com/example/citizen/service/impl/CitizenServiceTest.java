@@ -1,15 +1,14 @@
 package com.example.citizen.service.impl;
 
-import com.example.citizen.dto.CitizenDto;
-import com.example.citizen.dto.PassportDto;
 import com.example.citizen.mapper.CitizenMapper;
 import com.example.citizen.mapper.CitizenSetMapper;
-import com.example.citizen.mapper.CitizenSetMapperImpl;
 import com.example.citizen.model.Citizen;
 import com.example.citizen.model.Passport;
 import com.example.citizen.repository.CitizenRepository;
 import com.example.citizen.service.CitizenService;
 import com.example.citizen.service.PassportService;
+import com.example.common.dto.CitizenDto;
+import com.example.common.dto.PassportDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -24,7 +23,7 @@ public class CitizenServiceTest {
     private CitizenRepository citizenRepository = Mockito.mock(CitizenRepository.class);
     private PassportService passportService = Mockito.mock(PassportService.class);
     private CitizenMapper citizenMapper = Mockito.mock(CitizenMapper.class);
-    private CitizenSetMapper citizenSetMapper = Mockito.mock(CitizenSetMapperImpl.class);
+    private CitizenSetMapper citizenSetMapper = Mockito.mock(CitizenSetMapper.class);
     private CitizenService citizenService = new CitizenServiceImpl(citizenRepository,
             passportService,
             citizenMapper,

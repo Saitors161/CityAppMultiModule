@@ -1,11 +1,7 @@
-package com.example.citizen.dto;
+package com.example.common.dto;
 
-import com.example.citizen.model.Build;
-import com.example.citizen.model.Car;
-import com.example.citizen.model.Passport;
 import lombok.Data;
 
-import javax.persistence.Column;
 import java.util.Set;
 @Data
 public class CitizenDto {

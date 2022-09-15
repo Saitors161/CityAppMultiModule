@@ -1,7 +1,7 @@
 package com.example.citizen.controller;
 
-import com.example.citizen.dto.PassportDto;
 import com.example.citizen.service.PassportService;
+import com.example.common.dto.PassportDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
