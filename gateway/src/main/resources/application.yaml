@@ -1,0 +1,14 @@
+server:
+  port: 8100
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: citizenApp
+          uri: http://localhost:8090/
+          predicates:
+          - Path=/api/v1/citizens/**
+        - id: carApp
+          uri: http://localhost:8091/
+          predicates:
+            - Path=/api/v1/cars/**

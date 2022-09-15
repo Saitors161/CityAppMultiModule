@@ -1,8 +1,6 @@
-package com.example.citizen.rest;
+package com.example.citizen.controller;
 
-import com.example.citizen.dto.CitizenDto;
 import com.example.citizen.dto.PassportDto;
-import com.example.citizen.service.CitizenService;
 import com.example.citizen.service.PassportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +13,16 @@ import java.util.Set;
 public class PassportController {
     private final PassportService passportService;
 
-    @GetMapping
-    Set<PassportDto> getPassports() {
-        return passportService.getAll();
-    }
-
+    //todo: open only for admin
     @GetMapping("/{id}")
     PassportDto getPassportById(@PathVariable Integer id) {
         return null;
+    }
+
+
+    @GetMapping
+    Set<PassportDto> getPassports() {
+        return passportService.getAll();
     }
 
     @PutMapping

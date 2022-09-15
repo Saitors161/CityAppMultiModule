@@ -1,4 +1,4 @@
-package com.example.citizen.rest;
+package com.example.citizen.controller;
 
 import com.example.citizen.dto.CitizenDto;
 import com.example.citizen.service.CitizenService;

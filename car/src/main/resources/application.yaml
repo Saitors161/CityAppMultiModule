@@ -1,0 +1,21 @@
+server:
+  port: 8091
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=car_app
+    username: postgres
+    password: 1234
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=car_app
+    user: postgres
+    password: 1234
+  jpa:
+    show-sql: true
+
+city:
+  citizen-app:
+    citizen-url: http://localhost:8090/api/v1/citizens
+#logging:
+#  level:
+#    root: debug

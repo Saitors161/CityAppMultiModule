@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+	<changeSet id="1.0.0" author="mikhail.tsirdava">
+		<createTable tableName="cars">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="serial_number" type="UUID">
+				<constraints nullable="false" />
+			</column>
+			<column name="registered" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column name="type_car" type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="citizen_id" type="INT" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>
