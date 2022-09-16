@@ -20,10 +20,4 @@ public class Citizen {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "passport_id", referencedColumnName = "id")
     private Passport passport;
-    @JsonInclude()
-    @Transient
-    private Set<Car> cars;
-    @JsonInclude()
-    @Transient
-    private Set<Build> builds;
 }

@@ -2,6 +2,7 @@ package com.example.common.dto;
 
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.Set;
 @Data
 public class CitizenDto {
@@ -10,5 +11,5 @@ public class CitizenDto {
     private String lastName;
     private PassportDto passport;
     private Set<CarDto> cars;
-    private Set<BuildDto> builds;
+    private HashSet<BuildDto> builds;
 }

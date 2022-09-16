@@ -40,7 +40,8 @@ public class CitizenServiceImpl implements CitizenService {
 
     @Override
     public CitizenDto update(CitizenDto citizenDto) {
-        Citizen citizenInDb = citizenRepository.findById(citizenDto.getId()).orElseThrow(()->new EntityNotFoundException("citizen with"));
+        Citizen citizenInDb = citizenRepository.findById(citizenDto.getId())
+                .orElseThrow(()-> new EntityNotFoundException("Citizen with id "+ citizenDto.getId() + " not found. The update was canceled"));
         Citizen citizen = citizenMapper.toModel(citizenDto);
         citizen.setPassport(citizenInDb.getPassport());
         return citizenMapper.toDto(citizenRepository.save(citizen));

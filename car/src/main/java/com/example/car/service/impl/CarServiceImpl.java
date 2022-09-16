@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+
+import static java.lang.Thread.currentThread;
 
 @Service
 @RequiredArgsConstructor
@@ -41,10 +45,27 @@ public class CarServiceImpl implements CarService {
     }
 
     private Set<String> checkDataForCarDtoSave(CarDto carDto) {
-        Set<String> incorrectData = new HashSet<>();
-        citizenService.checkDataForCitizen(incorrectData, carDto.getCitizenId());
-        checkDataForCar(incorrectData, carDto);
+        Set<String> incorrectData = ConcurrentHashMap.newKeySet();
+        CountDownLatch door = new CountDownLatch(2);
+        citizenService.checkDataForCitizenThread(incorrectData, carDto.getCitizenId(), door);
+        checkDataForSaveCarThread(incorrectData, carDto, door);
+
+        try {
+            door.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return incorrectData;
+    }
+
+    private void checkDataForSaveCarThread(Set<String> incorrectData, CarDto carDto, CountDownLatch door) {
+        Runnable runCheckDataForCitizen = () -> {
+            checkDataForCar(incorrectData, carDto);
+            System.out.println("The car was checked. Thread : " + currentThread().getName());
+            door.countDown();
+        };
+        Thread threadCheckDataForCitizen = new Thread(runCheckDataForCitizen);
+        threadCheckDataForCitizen.start();
     }
 
 
@@ -66,16 +87,21 @@ public class CarServiceImpl implements CarService {
         }
     }
 
-
-
     @Override
     public CarDto update(CarDto carDto) {
         Set<String> incorrectData = new HashSet<>();
-        citizenService.checkDataForCitizen(incorrectData, carDto.getCitizenId());
-        Car car = carRepository.findById(carDto.getId()).get();
+        CountDownLatch door = new CountDownLatch(1);
+        citizenService.checkDataForCitizenThread(incorrectData, carDto.getCitizenId(), door);
+        Car car = carRepository.findById(carDto.getId()).orElse(null);
         if (car == null) {
             incorrectData.add("Car with id " + carDto.getId() + " not found");
         }
+        try {
+            door.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         if (incorrectData.isEmpty()) {
             car.setCitizenId(carDto.getCitizenId());
             car.setRegistered(new Date());
