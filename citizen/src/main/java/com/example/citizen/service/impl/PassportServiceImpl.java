@@ -1,6 +1,5 @@
 package com.example.citizen.service.impl;
 
-import com.example.citizen.error.EntityInCityNotFoundException;
 import com.example.citizen.mapper.PassportMapper;
 import com.example.citizen.mapper.PassportSetMapper;
 import com.example.citizen.model.Passport;
@@ -10,6 +9,7 @@ import com.example.common.dto.PassportDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Set;
 @Service
 @RequiredArgsConstructor
@@ -32,7 +32,7 @@ public class PassportServiceImpl implements PassportService {
     @Override
     public PassportDto update(PassportDto passportDto) {
         Passport passport = passportRepository.findById(passportDto.getId()).orElseThrow(()->
-                new EntityInCityNotFoundException("passport with id" + passportDto.getId() + " not found"));
+                new EntityNotFoundException("passport with id" + passportDto.getId() + " not found"));
         passport.setNumber(passportDto.getNumber());
         return passportMapper.toDto(passportRepository.save(passport));
     }
@@ -44,7 +44,7 @@ public class PassportServiceImpl implements PassportService {
 
     @Override
     public PassportDto getById(Integer id) {
-        Passport passport = passportRepository.findById(id).orElseThrow(()-> new EntityInCityNotFoundException(
+        Passport passport = passportRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(
                 "passport with id" + id + " not found"
         ));
         return passportMapper.toDto(passport);

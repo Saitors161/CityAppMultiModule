@@ -1,6 +1,5 @@
 package com.example.citizen.service.impl;
 
-import com.example.citizen.error.EntityInCityNotFoundException;
 import com.example.citizen.mapper.CitizenMapper;
 import com.example.citizen.mapper.CitizenSetMapper;
 import com.example.citizen.model.Citizen;
@@ -13,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
@@ -40,7 +40,7 @@ public class CitizenServiceImpl implements CitizenService {
 
     @Override
     public CitizenDto update(CitizenDto citizenDto) {
-        Citizen citizenInDb = citizenRepository.findById(citizenDto.getId()).orElseThrow(()->new EntityInCityNotFoundException("citizen with"));
+        Citizen citizenInDb = citizenRepository.findById(citizenDto.getId()).orElseThrow(()->new EntityNotFoundException("citizen with"));
         Citizen citizen = citizenMapper.toModel(citizenDto);
         citizen.setPassport(citizenInDb.getPassport());
         return citizenMapper.toDto(citizenRepository.save(citizen));
@@ -53,7 +53,7 @@ public class CitizenServiceImpl implements CitizenService {
 
     @Override
     public CitizenDto getById(Integer id) {
-        Citizen citizen = citizenRepository.findById(id).orElseThrow(()->new EntityInCityNotFoundException(
+        Citizen citizen = citizenRepository.findById(id).orElseThrow(()->new EntityNotFoundException(
                 "citizen with id " + id +" not found!"));
         return citizenMapper.toDto(citizen);
     }

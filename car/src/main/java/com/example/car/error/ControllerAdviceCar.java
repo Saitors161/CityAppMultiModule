@@ -1,5 +1,7 @@
 package com.example.car.error;
 
+import com.example.common.error.ApiError;
+import com.example.common.error.IncorrectDataException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

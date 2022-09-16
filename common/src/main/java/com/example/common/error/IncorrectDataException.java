@@ -1,4 +1,4 @@
-package com.example.car.error;
+package com.example.common.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

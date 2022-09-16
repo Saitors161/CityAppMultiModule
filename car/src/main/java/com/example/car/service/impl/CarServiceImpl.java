@@ -1,7 +1,6 @@
 package com.example.car.service.impl;
 
 import com.example.car.dto.CarDto;
-import com.example.car.error.IncorrectDataException;
 import com.example.car.mapper.CarListMapper;
 import com.example.car.mapper.CarMapper;
 import com.example.car.model.Car;
@@ -9,6 +8,7 @@ import com.example.car.repository.CarRepository;
 import com.example.car.service.CarService;
 import com.example.car.service.CitizenService;
 import com.example.common.enums.TypeCar;
+import com.example.common.error.IncorrectDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

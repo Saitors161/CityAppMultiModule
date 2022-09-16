@@ -1,4 +1,4 @@
-package com.example.citizen.error;
+package com.example.common.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
